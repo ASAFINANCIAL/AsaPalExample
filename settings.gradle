@@ -1,0 +1,2 @@
+rootProject.name = "ASALOCAL"
+include ':app'

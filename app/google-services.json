@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "532232349851",
+    "project_id": "asa-vault",
+    "storage_bucket": "asa-vault.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532232349851:android:a481b09a74f7031e5fbe3e",
+        "android_client_info": {
+          "package_name": "com.asa.pal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532232349851-9d8c5rol7jeluruunu685ppgrlqepb2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSJLkulRLh8Ptnl-NCVwUWuezRCPNRN7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532232349851-9d8c5rol7jeluruunu685ppgrlqepb2i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "532232349851-19gcqdej58g7u78knu4inl2tk5vc8glb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.asa.vault"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532232349851:android:c270fd8171aff6ca5fbe3e",
+        "android_client_info": {
+          "package_name": "com.asa.vault"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532232349851-9d8c5rol7jeluruunu685ppgrlqepb2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSJLkulRLh8Ptnl-NCVwUWuezRCPNRN7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532232349851-9d8c5rol7jeluruunu685ppgrlqepb2i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "532232349851-19gcqdej58g7u78knu4inl2tk5vc8glb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.asa.vault"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
