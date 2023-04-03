@@ -27,6 +27,8 @@ hs_err_pid*
 .DS_Store
 .gradle/
 local.properties
+app/build
+build
 
 # other
 app/src/main/java/com/enact/asa/utils/BEConstants.kt
