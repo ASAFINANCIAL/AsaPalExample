@@ -28,8 +28,6 @@ class SplashActivity : BaseActivity() {
         Firebase.dynamicLinks
             .getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
-                val keyList: ArrayList<String> = ArrayList()
-                val nameValuePair: ArrayList<String> = ArrayList()
                 // Get deep link from result (may be null if no link is found)
                 if (pendingDynamicLinkData == null) {
                     return@addOnSuccessListener
@@ -44,18 +42,15 @@ class SplashActivity : BaseActivity() {
                             .write(Constants.asaConsumerCode, asaConsumerCode)
                     }
 
-                    nameValuePair.add("ASA Consumer ID : $asaConsumerCode")
-                    keyList.add("AsaConsumerCode")
-
                     val asaFintechCode = deepLink.getQueryParameter("AsaFintechCode") ?: ""
-                    if (asaFintechCode.isNotEmpty()){
+                    if (asaFintechCode.isNotEmpty()) {
                         Log.d(TAG, "Fintech code loaded")
                         Paper.book()
                             .write(Constants.asaFintechCode, asaFintechCode)
                     }
 
                     val fintechName = deepLink.getQueryParameter("FintechName") ?: ""
-                    if (fintechName.isNotEmpty()){
+                    if (fintechName.isNotEmpty()) {
                         Log.d(TAG, "Fintech name loaded")
                         Paper.book()
                             .write(Constants.FintechName, fintechName)
