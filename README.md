@@ -2,7 +2,7 @@
 
 Example app shows how to use ASA Open API and deep links interaction.
 
-# SplashActivity
+## SplashActivity
 
 Used to receive information from deep link and save it to local storage using Paper library. The parameters which should be in deep link for API to work properly: AsaConsumerCode, AsaFintechCode, FintechName.
 
