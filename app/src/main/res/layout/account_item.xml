@@ -17,14 +17,17 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/purple_500"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/balance_header"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/balance"
         android:layout_marginBottom="5dp"
         tools:text="FREE CHECKING" />
 
@@ -32,9 +35,11 @@
         android:id="@+id/balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:textColor="@color/purple_500"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/account_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/balance_header"
         tools:text="$277.35" />

@@ -33,3 +33,4 @@ build
 # other
 app/src/main/java/com/enact/asa/utils/BEConstants.kt
 app/AsaPalKeystore.keystore
+app/release
