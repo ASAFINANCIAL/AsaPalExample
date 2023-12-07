@@ -1,5 +1,6 @@
 package com.enact.asa.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.AppCompatTextView
@@ -15,6 +16,7 @@ import com.enact.asa.network.RetrofitClientInterface
 import com.enact.asa.transactions.ui.TransactionsFragment
 import com.enact.asa.user_info.ui.UserInfoFragment
 import com.enact.asa.utils.BEConstants
+import com.google.android.material.button.MaterialButton
 import io.paperdb.Paper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.Response
+import spencerstudios.com.bungeelib.Bungee
 
 class MainActivity : BaseActivity() {
 
@@ -46,6 +49,12 @@ class MainActivity : BaseActivity() {
             } else {
                 getUserInfo()
             }
+        }
+
+        findViewById<MaterialButton>(R.id.bano_btn).setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            startActivity(intent)
+            Bungee.slideLeft(this)
         }
 
         setupViewPager(tabViewpager)

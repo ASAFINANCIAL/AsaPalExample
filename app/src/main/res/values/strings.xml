@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ASA PAL</string>
     <string name="refresh">Refresh</string>
+    <string name="bano_plugin">Bano Plugin</string>
 
 
 </resources>
