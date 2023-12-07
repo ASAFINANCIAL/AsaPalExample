@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ASA">
         <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.WebViewActivity" />
         <activity
             android:name=".activities.SplashActivity"
             android:launchMode="singleTask"
