@@ -2,8 +2,8 @@ package com.enact.asa.utils
 
 class Constants {
     companion object {
-        const val  asaConsumerCode  =  "asaConsumerCode"
-        const val  asaFintechCode  =  "asaFintechCode"
-        const val  FintechName  =  "FintechName"
+        const val  ASA_CONSUMER_CODE  =  "AsaConsumerCode"
+        const val  ASA_FINTECH_CODE  =  "AsaFintechCode"
+        const val  FINTECH_NAME  =  "FintechName"
     }
 }

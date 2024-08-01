@@ -35,25 +35,25 @@ class SplashActivity : BaseActivity() {
                 val deepLink: Uri? = pendingDynamicLinkData.link
                 if (deepLink != null) {
                     //loading data from deep link in order to proceed requests
-                    val asaConsumerCode = deepLink.getQueryParameter("AsaConsumerCode") ?: ""
+                    val asaConsumerCode = deepLink.getQueryParameter(Constants.ASA_CONSUMER_CODE) ?: ""
                     if (asaConsumerCode.isNotEmpty()) {
                         Log.d(TAG, "Consumer code loaded")
                         Paper.book()
-                            .write(Constants.asaConsumerCode, asaConsumerCode)
+                            .write(Constants.ASA_CONSUMER_CODE, asaConsumerCode)
                     }
 
-                    val asaFintechCode = deepLink.getQueryParameter("AsaFintechCode") ?: ""
+                    val asaFintechCode = deepLink.getQueryParameter(Constants.ASA_FINTECH_CODE) ?: ""
                     if (asaFintechCode.isNotEmpty()) {
                         Log.d(TAG, "Fintech code loaded")
                         Paper.book()
-                            .write(Constants.asaFintechCode, asaFintechCode)
+                            .write(Constants.ASA_FINTECH_CODE, asaFintechCode)
                     }
 
-                    val fintechName = deepLink.getQueryParameter("FintechName") ?: ""
+                    val fintechName = deepLink.getQueryParameter(Constants.FINTECH_NAME) ?: ""
                     if (fintechName.isNotEmpty()) {
                         Log.d(TAG, "Fintech name loaded")
                         Paper.book()
-                            .write(Constants.FintechName, fintechName)
+                            .write(Constants.FINTECH_NAME, fintechName)
                     }
                 }
             }

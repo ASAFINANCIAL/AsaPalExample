@@ -1,8 +1,10 @@
 package com.enact.asa.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,15 +18,21 @@ import com.enact.asa.network.RetrofitClientInterface
 import com.enact.asa.transactions.ui.TransactionsFragment
 import com.enact.asa.user_info.ui.UserInfoFragment
 import com.enact.asa.utils.BEConstants
+import com.enact.asa.utils.Constants
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ktx.androidParameters
+import com.google.firebase.dynamiclinks.ktx.iosParameters
 import io.paperdb.Paper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import spencerstudios.com.bungeelib.Bungee
+import kotlin.coroutines.resume
 
 class MainActivity : BaseActivity() {
 
@@ -57,13 +65,57 @@ class MainActivity : BaseActivity() {
             Bungee.slideLeft(this)
         }
 
+        findViewById<AppCompatTextView>(R.id.billingBtn).setOnClickListener {
+            showProgressDialog()
+            redirectToAsaVault()
+        }
+
         setupViewPager(tabViewpager)
         tabLayout.setupWithViewPager(tabViewpager, true)
 
-        showProgressDialog()
         getUserInfo()
         getTransactionData()
+        showProgressDialog()
     }
+
+    private fun redirectToAsaVault() {
+        lifecycleScope.launch {
+            val dynamicLink = getStandardDynamicLink()
+            if (dynamicLink.isEmpty()) {
+                Toast.makeText(this@MainActivity, "Failed to create dynamic link", Toast.LENGTH_SHORT)
+                    .show()
+                hideProgress()
+                return@launch
+            }
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(dynamicLink))
+            startActivity(intent)
+            hideProgress()
+        }
+    }
+
+    private suspend fun getStandardDynamicLink(): String =
+        suspendCancellableCoroutine { continuation ->
+            val androidId = "com.asa.vault.qa"
+            val asaConsumerCode =
+                Paper.book().read(Constants.ASA_CONSUMER_CODE, "")
+            val asaFintechCode =
+                Paper.book().read(Constants.ASA_FINTECH_CODE, "")
+            val dynamicLinks = FirebaseDynamicLinks.getInstance()
+            val shortLinkTask = dynamicLinks.createDynamicLink()
+                .setLink(Uri.parse("https://www.asavault.com/?request=FintechBillingPage&asaConsumerCode=$asaConsumerCode&asaFintechCode=$asaFintechCode"))
+                .setDomainUriPrefix("https://asavault.page.link") // replace with your domain prefix
+            shortLinkTask.iosParameters("com.asa.vault.qa") {}
+            shortLinkTask.androidParameters(androidId) {}
+            shortLinkTask.buildShortDynamicLink()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val shortLink = task.result.shortLink
+                        continuation.resume(shortLink.toString())
+                    } else {
+                        continuation.resume("")
+                    }
+                }
+        }
 
     // This function is used to add items in arraylist and assign
     // the adapter to view pager
@@ -113,8 +165,8 @@ class MainActivity : BaseActivity() {
     private fun getTransactionData() {
         transactionsJob?.cancel()
         transactionsJob = null
-        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.asaConsumerCode, "")
-        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.asaFintechCode, "")
+        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_CONSUMER_CODE, "")
+        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_FINTECH_CODE, "")
         val hashMap: HashMap<String, Any> = HashMap()
         hashMap["Content-Type"] = "application/json"
         hashMap["Ocp-Apim-Subscription-Key"] = BEConstants.API_KEY
@@ -166,8 +218,8 @@ class MainActivity : BaseActivity() {
     private fun getUserInfo() {
         userInfoJob?.cancel()
         userInfoJob = null
-        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.asaConsumerCode, "")
-        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.asaFintechCode, "")
+        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_CONSUMER_CODE, "")
+        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_FINTECH_CODE, "")
         val hashMap: HashMap<String, Any> = HashMap()
         hashMap["Content-Type"] = "application/json"
         hashMap["Ocp-Apim-Subscription-Key"] = BEConstants.API_KEY

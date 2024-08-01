@@ -18,7 +18,7 @@ hashMap["AuthorizationKey"] = BEConstants.AUTHORIZATION_KEY
 
 ## RetrofitClientInterface
 
-Contains standart request interceptor and the link to api: "https://openapi.asacore.com/".
+Contains standard request interceptor and the link to api: "https://openapi.asacore.com/".
 
 ## ApiInterface
 

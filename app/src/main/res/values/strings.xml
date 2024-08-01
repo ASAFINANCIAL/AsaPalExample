@@ -2,6 +2,7 @@
     <string name="app_name">ASA PAL</string>
     <string name="refresh">Refresh</string>
     <string name="bano_plugin">Bano Plugin</string>
+    <string name="open_billing_page">Open billing page</string>
 
 
 </resources>

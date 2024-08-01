@@ -39,6 +39,25 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="0dp"
         android:layout_marginLeft="20dp"
+        android:id="@+id/billingBtn"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/open_billing_page"
+        android:textColor="@color/purple_200"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:textAllCaps="true"
+        fontPath="fonts/Poppins-Bold.otf"
+        app:layout_constraintBottom_toTopOf="@id/refreshBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/continuebg"
+        android:layout_height="50dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/refreshBtn"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="15dp"

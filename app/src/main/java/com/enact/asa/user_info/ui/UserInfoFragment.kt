@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.enact.asa.databinding.UserInfoFragmentBinding
 import com.enact.asa.models.BalanceItem
 import com.enact.asa.utils.BEConstants
+import com.enact.asa.utils.Constants
 import io.paperdb.Paper
 
 //Shows basic user info received from deep link and information about accounts
@@ -37,9 +38,9 @@ class UserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.asaConsumerCode, "")
-        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.asaFintechCode, "")
-        val fintechName = Paper.book().read(com.enact.asa.utils.Constants.FintechName, "")
+        val asaConsumerCode = Paper.book().read(Constants.ASA_CONSUMER_CODE, "")
+        val asaFintechCode = Paper.book().read(Constants.ASA_FINTECH_CODE, "")
+        val fintechName = Paper.book().read(Constants.FINTECH_NAME, "")
         if (asaConsumerCode.isNullOrEmpty()) {
             binding.consumerId.text = BEConstants.CONSUMER_CODE
         } else {
