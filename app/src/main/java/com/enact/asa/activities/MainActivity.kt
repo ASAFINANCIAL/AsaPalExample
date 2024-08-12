@@ -165,8 +165,8 @@ class MainActivity : BaseActivity() {
     private fun getTransactionData() {
         transactionsJob?.cancel()
         transactionsJob = null
-        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_CONSUMER_CODE, "")
-        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_FINTECH_CODE, "")
+        val asaConsumerCode = Paper.book().read(Constants.ASA_CONSUMER_CODE, "")
+        val asaFintechCode = Paper.book().read(Constants.ASA_FINTECH_CODE, "")
         val hashMap: HashMap<String, Any> = HashMap()
         hashMap["Content-Type"] = "application/json"
         hashMap["Ocp-Apim-Subscription-Key"] = BEConstants.API_KEY
@@ -218,8 +218,8 @@ class MainActivity : BaseActivity() {
     private fun getUserInfo() {
         userInfoJob?.cancel()
         userInfoJob = null
-        val asaConsumerCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_CONSUMER_CODE, "")
-        val asaFintechCode = Paper.book().read(com.enact.asa.utils.Constants.ASA_FINTECH_CODE, "")
+        val asaConsumerCode = Paper.book().read(Constants.ASA_CONSUMER_CODE, "")
+        val asaFintechCode = Paper.book().read(Constants.ASA_FINTECH_CODE, "")
         val hashMap: HashMap<String, Any> = HashMap()
         hashMap["Content-Type"] = "application/json"
         hashMap["Ocp-Apim-Subscription-Key"] = BEConstants.API_KEY
