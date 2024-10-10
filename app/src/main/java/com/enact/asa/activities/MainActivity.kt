@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -42,6 +43,20 @@ class MainActivity : BaseActivity() {
     private var transactionsJob: Job? = null
     private var userInfoJob: Job? = null
 
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data: Intent? = result.data
+                Paper.book().write(Constants.ASA_CONSUMER_CODE, data?.getStringExtra(LoginWithAsaActivity.ASA_CONSUMER_CODE) ?: "")
+                Paper.book().write(Constants.BEARER_TOKEN, data?.getStringExtra(LoginWithAsaActivity.BEARER_TOKEN) ?: "")
+                Paper.book().write(Constants.ASA_FINTECH_CODE, data?.getStringExtra(LoginWithAsaActivity.ASA_FINTECH_CODE) ?: "")
+                Paper.book().write(Constants.EXPIRY_DATE_FOR_TOKEN, data?.getStringExtra(LoginWithAsaActivity.EXPIRY_DATE_FOR_TOKEN) ?: "")
+                Paper.book().write(Constants.EMAIL, data?.getStringExtra(LoginWithAsaActivity.EMAIL) ?: "")
+            } else {
+                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -63,6 +78,10 @@ class MainActivity : BaseActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             startActivity(intent)
             Bungee.slideLeft(this)
+        }
+
+        findViewById<MaterialButton>(R.id.login_with_asa_btn).setOnClickListener {
+            startLoginWithAsa()
         }
 
         findViewById<AppCompatTextView>(R.id.billingBtn).setOnClickListener {
@@ -93,9 +112,21 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun startLoginWithAsa() {
+        val intent = Intent(this@MainActivity, LoginWithAsaActivity::class.java)
+        intent.putExtra(
+            LoginWithAsaActivity.SUBSCRIPTION_KEY,
+            "9ae28108db93416fb44058a4a9a7a503"
+        )
+        intent.putExtra(LoginWithAsaActivity.ASA_FINTECH_CODE, "12345678")
+        intent.putExtra(LoginWithAsaActivity.APPLICATION_CODE, "2001")
+        intent.putExtra(LoginWithAsaActivity.AUTHORIZATION_KEY, "l8r/i8btbwBRCAaM2m7c")
+        startForResult.launch(intent)
+    }
+
     private suspend fun getStandardDynamicLink(): String =
         suspendCancellableCoroutine { continuation ->
-            val androidId = "com.asa.vault.qa"
+            val androidId = "com.asa.vault.uat"
             val asaConsumerCode =
                 Paper.book().read(Constants.ASA_CONSUMER_CODE, "")
             val asaFintechCode =

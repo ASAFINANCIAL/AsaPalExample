@@ -3,6 +3,8 @@ package com.enact.asa.user_info.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,11 +38,14 @@ class UserInfoFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+
+    override fun onResume() {
+        super.onResume()
         val asaConsumerCode = Paper.book().read(Constants.ASA_CONSUMER_CODE, "")
         val asaFintechCode = Paper.book().read(Constants.ASA_FINTECH_CODE, "")
         val fintechName = Paper.book().read(Constants.FINTECH_NAME, "")
+        val email = Paper.book().read(Constants.EMAIL, "")
         if (asaConsumerCode.isNullOrEmpty()) {
             binding.consumerId.text = BEConstants.CONSUMER_CODE
         } else {
@@ -55,6 +60,14 @@ class UserInfoFragment : Fragment() {
             binding.fintechName.text = "ASA PAL"
         } else {
             binding.fintechName.text = fintechName
+        }
+        if (email.isNullOrEmpty()) {
+            binding.emailHeader.visibility = GONE
+            binding.emailName.visibility = GONE
+        } else {
+            binding.emailHeader.visibility = VISIBLE
+            binding.emailName.visibility = VISIBLE
+            binding.emailName.text = email
         }
     }
 
